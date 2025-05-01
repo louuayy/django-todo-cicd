@@ -77,6 +77,7 @@ jobs:
       - name: Push Docker image
         run: |
           echo "Pushing Docker image..."
+          docker tag louaymedeni/python-django:latest louaymedeni/python-django:latest
           docker push louaymedeni/python-django:latest
         continue-on-error: true
 
