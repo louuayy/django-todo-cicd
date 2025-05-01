@@ -71,7 +71,7 @@ jobs:
       - name: Build Docker image
         run: |
           echo "Building Docker image..."
-          docker build -t louaymedeni/python-django:latest .
+          docker build -t louaymedeni/python-django:latest . --progress=plain --no-cache
           echo "Listing images after build..."
           docker images | grep louaymedeni/python-django || echo "Image not found after build!"
 
