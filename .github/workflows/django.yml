@@ -68,16 +68,19 @@ jobs:
         run: |
           echo "Checking Docker login status..."
           docker system info | grep -i "username" || echo "Username not found in docker info"
-
       - name: Build Docker image
         run: |
           echo "Building Docker image..."
           docker build -t louaymedeni/python-django:latest .
-
+          echo "Listing images after build..."
+          docker images | grep louaymedeni/python-django
+       
       - name: Push Docker image
         run: |
           echo "Pushing Docker image..."
           docker tag louaymedeni/python-django:latest louaymedeni/python-django:latest
+          echo "Listing images before push..."
+          docker images | grep louaymedeni/python-django
           docker push louaymedeni/python-django:latest
         continue-on-error: true
 
