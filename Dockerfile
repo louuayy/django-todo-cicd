@@ -20,4 +20,4 @@ ENV DJANGO_SETTINGS_MODULE=todo_list.settings
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 Django-To-Do-list-with-user-authentication-master.wsgi"]
+CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 todo_list.wsgi"]
