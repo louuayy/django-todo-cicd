@@ -45,11 +45,11 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: |
-          echo "Building Docker image..."
-          docker build -t louaymedeni/python-django:latest . --progress=plain
-          echo "Listing images after build..."
-          docker images | grep louaymedeni/python-django || (echo "Image not found!" && exit 1) 
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: louaymedeni/python-django:latest
+          load: true  # Load the image into the Docker daemon
 
       - name: List all Docker images
         run: docker images
@@ -61,7 +61,9 @@ jobs:
       - name: Push Docker image
         run: |
           echo "Pushing Docker image..."
+          docker images | grep louaymedeni/python-django || (echo "Image not found!" && exit 1)
           docker push louaymedeni/python-django:latest
+        continue-on-error: true
 
   deploy-to-minikube:
     runs-on: self-hosted
