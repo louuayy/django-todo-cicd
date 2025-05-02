@@ -46,9 +46,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          set -e
           echo "Building Docker image..."
-          docker build -t louaymedeni/python-django:latest .
+          docker build -t louaymedeni/python-django:latest . --progress=plain
+          echo "Listing images after build..."
+          docker images | grep louaymedeni/python-django || (echo "Image not found!" && exit 1) 
 
       - name: List all Docker images
         run: docker images
