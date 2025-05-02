@@ -87,11 +87,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+
       - name: Set up Kubeconfig
         run: |
           mkdir -p $HOME/.kube
           echo "${{ secrets.KUBECONFIG_CONTENT }}" | base64 --decode > $HOME/.kube/config
           chmod 600 $HOME/.kube/config
+
 
       - name: Start Minikube
         run: minikube start --driver=docker
@@ -99,8 +101,8 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           echo "Deploying to Kubernetes..."
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
+          kubectl rollout restart deployment django-deployment
+
 
       - name: Wait for deployment
         run: kubectl rollout status deployment/django-app
