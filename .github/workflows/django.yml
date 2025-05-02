@@ -48,16 +48,19 @@ jobs:
         run: |
           set -e
           echo "Building Docker image..."
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/python-django:latest .
+          docker build -t louaymedeni/python-django:latest .
+
+      - name: List all Docker images
+        run: docker images
 
       - name: Confirm Docker image exists
         run: |
-          docker images | grep "${{ secrets.DOCKER_USERNAME }}/python-django" || (echo "Image not found!" && exit 1)
+          docker images | grep "louaymedeni/python-django" || (echo "Image not found!" && exit 1)
 
       - name: Push Docker image
         run: |
           echo "Pushing Docker image..."
-          docker push ${{ secrets.DOCKER_USERNAME }}/python-django:latest
+          docker push louaymedeni/python-django:latest
 
   deploy-to-minikube:
     runs-on: self-hosted
