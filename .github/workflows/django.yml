@@ -53,7 +53,7 @@ jobs:
       - name: List all Docker images
         run: docker images
 
-      - name: Confirm Docker image exists
+      - name: Confirm image built
         run: |
           docker images | grep "louaymedeni/python-django" || (echo "Image not found!" && exit 1)
 
