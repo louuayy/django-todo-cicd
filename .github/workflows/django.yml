@@ -66,11 +66,22 @@ jobs:
         continue-on-error: true
 
   deploy-to-minikube:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest  # Switch to GitHub-hosted runner
     needs: build-and-push
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Set up kind
+        uses: helm/kind-action@v1.9.0
+        with:
+          version: v0.23.0
+          cluster_name: kind-cluster
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
 
       - name: Set up Kubeconfig
         run: |
@@ -81,5 +92,8 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           echo "Deploying to Kubernetes..."
-          kubectl rollout restart deployment django-app
-          kubectl rollout status deployment/django-app
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
+
+      - name: Wait for deployment
+        run: kubectl rollout status deployment/django-app
