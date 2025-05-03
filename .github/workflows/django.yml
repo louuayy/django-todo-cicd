@@ -91,3 +91,8 @@ jobs:
 
       - name: Wait for deployment
         run: kubectl rollout status deployment/django-app
+      - name: Test service accessibility
+        run: |
+          kubectl port-forward svc/django-service 8000:8000 &
+          sleep 5
+          curl -f http://localhost:8000 || (echo "Service not accessible!" && exit 1)
