@@ -2,6 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/actions-runner/_work/django-todo-cicd/django-todo-cicd" vcs="Git" />
   </component>
 </project>

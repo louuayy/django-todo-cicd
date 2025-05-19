@@ -28,5 +28,7 @@ ENV DJANGO_SETTINGS_MODULE=todo_list.settings
 
 EXPOSE 8000
 
-# Migrate and start Gunicorn
-CMD ["bash", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 todo_list.wsgi"]
+# Copy and set up entrypoint script
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+CMD ["./entrypoint.sh"]
