@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.139'] # Allow all hosts for PFA simplicity
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.49.2'] # Allow all hosts for PFA simplicity
 
 # Application definition
 INSTALLED_APPS = [
